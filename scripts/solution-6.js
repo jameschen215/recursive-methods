@@ -10,6 +10,20 @@ function contains(obj, value) {
 	return false;
 }
 
+// So so smart
+function containsRecursive(obj, searchValue) {
+	if (typeof obj !== 'object' || obj === null) {
+		return obj === searchValue;
+	}
+
+	for (const value of Object.values(obj)) {
+		if (contains(value, searchValue)) {
+			return true;
+		}
+	}
+
+	return false;
+}
 const nestedObject = {
 	data: {
 		info: {
@@ -25,7 +39,7 @@ const nestedObject = {
 	},
 };
 
-const hasIt = contains(nestedObject, 'foo2'); // true
-const notHaveIt = contains(nestedObject, 3); // false
+const hasIt = containsRecursive(nestedObject, 'foo2'); // true
+const notHaveIt = containsRecursive(nestedObject, 3); // false
 
 console.log({ hasIt, notHaveIt });
